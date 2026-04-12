@@ -76,6 +76,12 @@ class TUFSignedDelegationsRoles(BaseModel):
         description="Expire Policy for the role",
         default=None,
     )
+    x_rstuf_key_source: Optional[str] = Field(
+        alias="x-rstuf-key-source",
+        description="URI identifying the signing key for this delegation",
+        default=None,
+        pattern=r"^(kms://(aws|gcp)/|vault://|offline://).*",
+    )
     # Note: No validation is required for paths as these patterns are only used
     # to distribute artifacts. No files are created based on them.
     paths: List[str] = Field(min_length=1)
